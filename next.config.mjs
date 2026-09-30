@@ -1,13 +1,16 @@
 /** @type {import('next').NextConfig} */
 
 /**
- * Custom domain (metalshov.ru) currently delivers static bodies at ~300 B/s and
- * truncates CSS mid-transfer. *.vercel.app is fine — serve JS/CSS from there.
- * Public files (/stock, /logo, /portfolio) are prefixed via lib/assets.ts.
+ * Custom domain (metalshov.ru) truncates/slow-drips static bodies.
+ * VERCEL_URL is a per-deploy host often behind Vercel SSO (302 → login) — unusable for public assets.
+ * Always use the stable public production alias, overridable via NEXT_PUBLIC_ASSET_PREFIX.
  */
-const assetPrefix = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : process.env.NEXT_PUBLIC_ASSET_PREFIX || ''
+const STABLE_ASSET_HOST = 'https://svarka-eta.vercel.app'
+
+const assetPrefix = (
+  process.env.NEXT_PUBLIC_ASSET_PREFIX ||
+  (process.env.VERCEL ? STABLE_ASSET_HOST : '')
+).replace(/\/$/, '')
 
 const nextConfig = {
   reactStrictMode: true,
@@ -15,7 +18,6 @@ const nextConfig = {
   compress: true,
   ...(assetPrefix ? { assetPrefix } : {}),
   env: {
-    // Expose to client so /stock, /logo, /portfolio URLs also hit vercel.app
     NEXT_PUBLIC_ASSET_PREFIX: assetPrefix,
   },
   async headers() {
@@ -26,11 +28,7 @@ const nextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-          // Allow CSS/fonts from the vercel.app asset host when page is on custom domain
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: '*',
-          },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
         ],
       },
     ]
