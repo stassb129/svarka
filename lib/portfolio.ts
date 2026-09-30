@@ -1,9 +1,10 @@
-export type ProjectType = 'mig' | 'tig' | 'structures'
+export type ProjectType = 'mig' | 'heating' | 'structures' | 'repair'
 
-export type GalleryImage = {
+export type GalleryItem = {
   src: string
   alt: string
   caption?: string
+  type?: 'image' | 'video'
 }
 
 export type PortfolioProject = {
@@ -14,145 +15,203 @@ export type PortfolioProject = {
   year: string
   type: ProjectType
   image: string
-  gallery: GalleryImage[]
+  gallery: GalleryItem[]
   description: string
   details: string[]
   tone: string
 }
 
-const u = (id: string, w = 1600) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`
+function isVideo(src: string) {
+  return /\.(mp4|webm|mov)(\?|$)/i.test(src)
+}
+
+/** Normalize gallery item: detect video by extension when type is omitted. */
+export function galleryItemType(item: GalleryItem): 'image' | 'video' {
+  return item.type ?? (isVideo(item.src) ? 'video' : 'image')
+}
 
 export const portfolioProjects: PortfolioProject[] = [
   {
-    id: 'warehouse-frame',
-    title: 'КАРКАС СКЛАДА',
-    subtitle: 'Логистический комплекс «Север»',
-    area: '420 п.м. шва',
+    id: 'mangal',
+    title: 'МАНГАЛ',
+    subtitle: 'Частный двор, Одинцово',
+    area: 'каркас + топка',
     year: '2025',
     type: 'structures',
-    image: u('photo-1581092918056-0c4c3acd3789'),
+    image: '/portfolio/mangal/1.jpg',
     gallery: [
-      { src: u('photo-1581092918056-0c4c3acd3789'), alt: 'Металлокаркас', caption: 'Каркас' },
-      { src: u('photo-1504328345606-18bbc8c9d7d1'), alt: 'Сварка колонн', caption: 'Монтаж' },
-      { src: u('photo-1581094794329-c8112a89af12'), alt: 'Цеховая сборка', caption: 'Сборка' },
-      { src: u('photo-1581092162384-8987c1d64718'), alt: 'Готовый узел', caption: 'Узел' },
+      { src: '/portfolio/mangal/1.jpg', alt: 'Готовый каркас мангала', caption: 'Каркас' },
+      { src: '/portfolio/mangal/2.jpg', alt: 'Сборка топки мангала', caption: 'Топка' },
+      { src: '/portfolio/mangal/3.jpg', alt: 'Мангал на площадке', caption: 'Готово' },
     ],
-    description: 'Изготовление и монтаж металлокаркаса склада: колонны, балки, связи.',
+    description:
+      'Изготовление мангала под заказ: каркас из профильной трубы, топка из листовой стали, полка для дров и боковые консоли.',
     details: [
-      'MIG/MAG на основных стыках',
-      'Контроль катета и геометрии',
-      'Срок — 24 дня',
+      'MIG/MAG по чёрной стали 3–4 мм',
+      'Зачистка швов и подготовка под покраску',
+      'Срок изготовления — 4 дня',
     ],
     tone: 'from-[#1C222C] via-[#2A3140] to-[#12151C]',
   },
   {
-    id: 'stainless-line',
-    title: 'НЕРЖАВЕЮЩАЯ ОБВЯЗКА',
-    subtitle: 'Пищевое производство',
-    area: '86 п.м. шва',
+    id: 'polotencesushitel',
+    title: 'ПОЛОТЕНЦЕСУШИТЕЛЬ',
+    subtitle: 'Квартира, ЖК «Ривер Парк»',
+    area: 'змеевик на стене',
     year: '2025',
-    type: 'tig',
-    image: u('photo-1565193566173-7a0ee3dbe261'),
+    type: 'heating',
+    image: '/portfolio/polotencesushitel/1.jpg',
     gallery: [
-      { src: u('photo-1565193566173-7a0ee3dbe261'), alt: 'Нержавеющие трубы', caption: 'Трубы' },
-      { src: u('photo-1621905252507-b35492cc74b4'), alt: 'TIG сварка', caption: 'TIG' },
-      { src: u('photo-1581092335397-9583eb92d232'), alt: 'Сварочный пост', caption: 'Пост' },
-      { src: u('photo-1581091226825-a6a2a5aee158'), alt: 'Готовый участок', caption: 'Готово' },
+      {
+        src: '/portfolio/polotencesushitel/1.jpg',
+        alt: 'Змеевик полотенцесушителя на бетонной стене',
+        caption: 'Змеевик',
+      },
+      {
+        src: '/portfolio/polotencesushitel/2.jpg',
+        alt: 'Крепление полотенцесушителя',
+        caption: 'Крепление',
+      },
+      {
+        src: '/portfolio/polotencesushitel/3.jpg',
+        alt: 'Подключение к стояку',
+        caption: 'Подключение',
+      },
+      {
+        src: '/portfolio/polotencesushitel/4.mp4',
+        alt: 'Видео монтажа полотенцесушителя',
+        caption: 'Монтаж',
+        type: 'video',
+      },
     ],
-    description: 'Аргонодуговая сварка нержавеющего трубопровода с поддувом корня.',
+    description:
+      'Изготовление и монтаж полотенцесушителя-змеевика из стальной трубы с врезкой в стояк ГВС и аккуратным креплением к стене.',
     details: [
-      'TIG DC, присадка ER316L',
-      'Поддув аргона',
-      'ВИК + капиллярный контроль',
+      'Сварка стыков и U-отводов',
+      'Опрессовка после монтажа',
+      'Защита отделки на объекте',
     ],
     tone: 'from-[#141820] via-[#1C222C] to-[#0A0C10]',
   },
   {
-    id: 'bridge-repair',
-    title: 'РЕМОНТ УЗЛОВ',
-    subtitle: 'Эстакада на объекте заказчика',
-    area: '64 п.м. шва',
-    year: '2024',
-    type: 'mig',
-    image: u('photo-1504328345606-18bbc8c9d7d1'),
+    id: 'radiator',
+    title: 'РАДИАТОР ОТОПЛЕНИЯ',
+    subtitle: 'Квартира, вторичка',
+    area: '1 точка + врезка',
+    year: '2025',
+    type: 'heating',
+    image: '/portfolio/radiator/1.jpg',
     gallery: [
-      { src: u('photo-1504328345606-18bbc8c9d7d1'), alt: 'Ремонтная сварка', caption: 'Ремонт' },
-      { src: u('photo-1504917598105-6e5be9b5b1b1'), alt: 'Дуга', caption: 'Процесс' },
-      { src: u('photo-1581092160562-40aa08e78837'), alt: 'Подготовка', caption: 'Подготовка' },
-      { src: u('photo-1581092918056-0c4c3acd3789'), alt: 'Усиление', caption: 'Усиление' },
+      {
+        src: '/portfolio/radiator/1.jpg',
+        alt: 'Установка радиатора Rifar с врезкой в стояк',
+        caption: 'Монтаж',
+      },
+      {
+        src: '/portfolio/radiator/2.jpg',
+        alt: 'Сварные подводы к радиатору',
+        caption: 'Подводы',
+      },
     ],
-    description: 'Усиление и ремонт несущих узлов полуавтоматом с последующей зачисткой.',
+    description:
+      'Замена радиатора с врезкой стальных подводов в стояк: ровная геометрия, краны, защита пола и стен на время работ.',
     details: [
-      'MAG, проволока 1,0 мм',
-      'Работа на высоте',
-      'Сдача по акту технадзора',
+      'Врезка в стояк полуавтоматом',
+      'Уровень и краны на подаче/обратке',
+      'Сдача без протечек',
     ],
     tone: 'from-[#1A1E28] via-[#2A3140] to-[#0E1116]',
   },
   {
-    id: 'aluminum-frame',
-    title: 'АЛЮМИНИЕВАЯ РАМА',
-    subtitle: 'Павильон выставочного комплекса',
-    area: '52 п.м. шва',
+    id: 'razvodka',
+    title: 'КОЛЛЕКТОРНАЯ РАЗВОДКА',
+    subtitle: 'Частный дом, Истринский р-н',
+    area: '2 коллектора',
     year: '2024',
-    type: 'tig',
-    image: u('photo-1621905252507-b35492cc74b4'),
+    type: 'heating',
+    image: '/portfolio/razvodka/1.jpg',
     gallery: [
-      { src: u('photo-1621905252507-b35492cc74b4'), alt: 'Алюминиевая сварка', caption: 'Алюминий' },
-      { src: u('photo-1581092335397-9583eb92d232'), alt: 'Пост TIG', caption: 'Оборудование' },
-      { src: u('photo-1565043666747-69ffa7078e4a'), alt: 'Сборка рамы', caption: 'Сборка' },
-      { src: u('photo-1581094794329-c8112a89af12'), alt: 'Готовый каркас', caption: 'Каркас' },
+      {
+        src: '/portfolio/razvodka/1.jpg',
+        alt: 'Коллекторный узел отопления',
+        caption: 'Коллектор',
+      },
+      {
+        src: '/portfolio/razvodka/2.jpg',
+        alt: 'Обвязка коллектора',
+        caption: 'Обвязка',
+      },
+      {
+        src: '/portfolio/razvodka/3.jpg',
+        alt: 'Готовый узел разводки',
+        caption: 'Готово',
+      },
     ],
-    description: 'TIG AC по алюминиевому профилю с контролем тепловложения.',
+    description:
+      'Сборка и монтаж коллекторного узла отопления: контуры, манометры, запорная арматура и аккуратная обвязка на щите.',
     details: [
-      'TIG AC, присадка ER4043',
-      'Зачистка оксидной плёнки',
-      'Гарантия 3 года на швы',
+      'Два коллектора на несколько контуров',
+      'Контроль давления по манометрам',
+      'Чистая сборка под сдачу объекта',
     ],
     tone: 'from-[#12151C] via-[#1C222C] to-[#0A0C10]',
   },
   {
-    id: 'fence-line',
-    title: 'ОГРАЖДЕНИЯ И ВОРОТА',
-    subtitle: 'ЖК «Горизонт»',
-    area: '210 п.м. шва',
-    year: '2024',
-    type: 'mig',
-    image: u('photo-1581092162384-8987c1d64718'),
+    id: 'vihlop',
+    title: 'ВЫХЛОПНАЯ СИСТЕМА',
+    subtitle: 'Автосервис, Москва',
+    area: 'cut-out клапаны',
+    year: '2025',
+    type: 'repair',
+    image: '/portfolio/vihlop/1.jpg',
     gallery: [
-      { src: u('photo-1581092162384-8987c1d64718'), alt: 'Металлическое ограждение', caption: 'Ограждение' },
-      { src: u('photo-1504917598105-6e5be9b5b1b1'), alt: 'Сварка секций', caption: 'Секции' },
-      { src: u('photo-1581092918056-0c4c3acd3789'), alt: 'Монтаж на объекте', caption: 'Монтаж' },
-      { src: u('photo-1581091226825-a6a2a5aee158'), alt: 'Готовый периметр', caption: 'Периметр' },
+      {
+        src: '/portfolio/vihlop/1.jpg',
+        alt: 'Установка выхлопных клапанов',
+        caption: 'Клапаны',
+      },
+      {
+        src: '/portfolio/vihlop/2.jpg',
+        alt: 'Интеграция в выхлопную трассу',
+        caption: 'Трасса',
+      },
+      {
+        src: '/portfolio/vihlop/3.mp4',
+        alt: 'Видео работы выхлопной системы',
+        caption: 'Результат',
+        type: 'video',
+      },
     ],
-    description: 'Изготовление и монтаж секций ограждения и откатных ворот.',
+    description:
+      'Врезка управляемых клапанов в выхлопную трассу: подгонка, сварка и проверка герметичности на подъёмнике.',
     details: [
-      'Полуавтомат MAG',
-      'Грунт и покраска по RAL',
-      'Монтаж за 12 дней',
+      'Подгонка и сварка по месту',
+      'Герметичные стыки без подсоса',
+      'Проверка на работающем двигателе',
     ],
     tone: 'from-[#141820] via-[#243040] to-[#0A0C10]',
   },
   {
-    id: 'shop-equipment',
-    title: 'НЕСТАНДАРТНОЕ ОБОРУДОВАНИЕ',
-    subtitle: 'Цех машиностроения',
-    area: '38 узлов',
-    year: '2023',
-    type: 'structures',
-    image: u('photo-1581094794329-c8112a89af12'),
+    id: 'pipes-basement',
+    title: 'СВАРКА ТРУБ',
+    subtitle: 'Техподполье, жилой дом',
+    area: 'стояки ГВС/отопления',
+    year: '2024',
+    type: 'mig',
+    image: '/portfolio/photo_2026-09-30_06-50-09.jpg',
     gallery: [
-      { src: u('photo-1581094794329-c8112a89af12'), alt: 'Цеховая сварка', caption: 'Цех' },
-      { src: u('photo-1565043666747-69ffa7078e4a'), alt: 'Оборудование', caption: 'Оснастка' },
-      { src: u('photo-1504328345606-18bbc8c9d7d1'), alt: 'Сборка узла', caption: 'Сборка' },
-      { src: u('photo-1581092160562-40aa08e78837'), alt: 'Контроль', caption: 'Контроль' },
+      {
+        src: '/portfolio/photo_2026-09-30_06-50-09.jpg',
+        alt: 'Сварка труб в стеснённом пространстве',
+        caption: 'На объекте',
+      },
     ],
-    description: 'Сварка нестандартных рам и столов под производственное оборудование.',
+    description:
+      'Ремонтная сварка стальных труб в стеснённом техподполье: работа в неудобной позе, аккуратный провар и контроль шва.',
     details: [
-      'Комбинация MIG + TIG',
-      'Чертежи заказчика',
-      'Паспорт сварщика НАКС',
+      'Выезд в подвал / техподполье',
+      'Полуавтомат и MMA по месту',
+      'Сдача без протечек',
     ],
     tone: 'from-[#1C222C] via-[#2A3140] to-[#12151C]',
   },
@@ -160,6 +219,7 @@ export const portfolioProjects: PortfolioProject[] = [
 
 export const typeLabels: Record<ProjectType, string> = {
   mig: 'Полуавтомат MIG/MAG',
-  tig: 'Аргонодуговая TIG',
-  structures: 'Металлоконструкции',
+  heating: 'Трубы и отопление',
+  structures: 'Металлоизделия',
+  repair: 'Ремонт и авто',
 }

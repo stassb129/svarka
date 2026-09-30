@@ -18,32 +18,32 @@ type Price = {
 const prices: Price[] = [
   {
     title: 'Полуавтомат MIG/MAG',
-    note: 'Проволока и газ считаются отдельно',
-    price: 'от 900',
+    note: 'Проволока и газ — отдельно или в пакете «работы + расходники»',
+    price: 'от 500',
     unit: '₽/п.м.',
     icon: Zap,
     href: '/services#mig',
   },
   {
-    title: 'Аргонодуговая TIG',
-    note: 'Нержавейка, алюминий, тонкая сталь',
-    price: 'от 1 400',
+    title: 'Трубы и отопление',
+    note: 'Врезка, радиаторы, полотенцесушители; точка — от 3 500 ₽',
+    price: 'от 700',
     unit: '₽/п.м.',
     icon: Flame,
-    href: '/services#tig',
+    href: '/services#heating',
   },
   {
-    title: 'Металлоконструкции',
-    note: 'Каркасы, ограждения, нестандартные узлы',
-    price: 'от 1 100',
+    title: 'Металлоизделия',
+    note: 'Мангалы, каркасы, нестандартные узлы',
+    price: 'от 550',
     unit: '₽/п.м.',
     icon: Boxes,
     href: '/services#structures',
   },
   {
     title: 'Ремонт и наплавка',
-    note: 'Восстановление узлов, MMA на объекте',
-    price: 'от 1 200',
+    note: 'Восстановление узлов, выхлоп, MMA на объекте',
+    price: 'от 600',
     unit: '₽/п.м.',
     icon: Wrench,
     href: '/services#repair',
@@ -77,8 +77,8 @@ export default function PriceList() {
             </motion.h2>
           </div>
           <motion.p variants={fadeInUp} className="max-w-md text-sm font-light leading-relaxed text-ink/60">
-            Указана минимальная стоимость работ без материалов. Точную цену зафиксируем после выезда
-            и оценки объёма.
+            Ориентир по рынку Москвы: указана минимальная стоимость работ без материалов. Минимум за
+            выезд — от 3 000 ₽. Точную цену зафиксируем после оценки объёма.
           </motion.p>
         </motion.div>
 

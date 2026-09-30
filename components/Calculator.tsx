@@ -7,18 +7,19 @@ import { fadeInUp, scaleIn, staggerContainer, viewportOnce } from '@/lib/motion'
 import { useLeadModal } from '@/components/LeadModal'
 
 /** Rate per п.м.: [работы, работы + базовые материалы] */
+/** Ориентир по рынку Москвы (работа / работа + базовые расходники), ₽ за п.м. шва. */
 const WORK_TYPES = [
-  { id: 'mig', label: 'Полуавтомат MIG/MAG', workRate: 900, fullRate: 1250 },
-  { id: 'tig', label: 'Аргонодуговая TIG', workRate: 1400, fullRate: 1900 },
-  { id: 'structures', label: 'Металлоконструкции', workRate: 1100, fullRate: 1550 },
-  { id: 'repair', label: 'Ремонт и наплавка', workRate: 1200, fullRate: 1650 },
+  { id: 'mig', label: 'Полуавтомат MIG/MAG', workRate: 500, fullRate: 750 },
+  { id: 'heating', label: 'Трубы и отопление', workRate: 700, fullRate: 1050 },
+  { id: 'structures', label: 'Металлоизделия', workRate: 550, fullRate: 850 },
+  { id: 'repair', label: 'Ремонт и наплавка', workRate: 600, fullRate: 900 },
 ] as const
 
-const LENGTH_PRESETS = [10, 50, 100, 150, 200] as const
+const LENGTH_PRESETS = [10, 20, 40, 60, 100] as const
 
 const MIN_LENGTH = 5
-const MAX_LENGTH = 300
-const DEFAULT_LENGTH = 75
+const MAX_LENGTH = 200
+const DEFAULT_LENGTH = 20
 
 const formatPrice = (value: number) => new Intl.NumberFormat('ru-RU').format(Math.round(value))
 
@@ -71,8 +72,8 @@ export default function Calculator() {
               variants={fadeInUp}
               className="mt-4 max-w-md text-base font-light leading-relaxed text-white/50"
             >
-              Калькулятор даёт ориентир. Точную смету согласуем после выезда и оценки объёма — без
-              скрытых доплат в процессе.
+              Калькулятор даёт ориентир по рынку Москвы. Точную смету согласуем после выезда и оценки
+              объёма — без скрытых доплат в процессе.
             </motion.p>
 
             <motion.ul variants={fadeInUp} className="section-gap space-y-4">
@@ -211,7 +212,7 @@ export default function Calculator() {
 
               <p className="mt-4 border-t border-white/10 pt-4 text-xs font-light text-white/40">
                 {formatPrice(workType.workRate)} ₽/п.м. за работы · {formatPrice(workType.fullRate)} ₽/п.м. с
-                базовыми материалами. Не окончательная смета.
+                базовыми расходниками. Минимальный заказ ориентировочно от 3 000 ₽. Не окончательная смета.
               </p>
             </div>
 

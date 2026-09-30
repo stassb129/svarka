@@ -4,10 +4,11 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, CalendarCheck, Flame, Phone, ShieldCheck } from 'lucide-react'
 import { site } from '@/lib/site'
+import { stock } from '@/lib/stock'
 import { EASE, fadeInUp, slideInRight, staggerContainer } from '@/lib/motion'
 
 const highlights = [
-  { icon: Flame, text: 'Все виды сварки: MIG, TIG, MMA' },
+  { icon: Flame, text: 'MIG/MAG, отопление, изделия, ремонт' },
   { icon: ShieldCheck, text: 'Гарантия до 5 лет на швы' },
   { icon: CalendarCheck, text: 'Выезд, смета и сдача в срок' },
 ]
@@ -34,7 +35,7 @@ export default function Hero() {
               variants={fadeInUp}
               className="mt-4 text-balance text-3xl font-bold uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-[2.75rem] xl:text-5xl"
             >
-              Все виды сварки
+              Сварка с выездом
               <br />
               <span className="text-accent">для ваших задач</span>
             </motion.h1>
@@ -43,8 +44,8 @@ export default function Hero() {
               variants={fadeInUp}
               className="mt-4 max-w-md text-sm font-light leading-relaxed text-white/60 sm:text-base lg:text-lg"
             >
-              MIG/MAG, аргон TIG, металлоконструкции и ремонт узлов. Приеду на объект, оценю объём и
-              зафиксирую смету до начала работ.
+              MIG/MAG, трубы и отопление, металлоизделия и ремонт узлов. Приеду на объект, оценю
+              объём и зафиксирую смету до начала работ.
             </motion.p>
 
             <motion.div
@@ -101,8 +102,8 @@ export default function Hero() {
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1400&q=80"
-              alt="Сварщик выполняет дуговую сварку металлоконструкции"
+              src={stock.hero.src}
+              alt={stock.hero.alt}
               width={1200}
               height={900}
               className="relative z-10 h-auto w-full rounded-[5px] object-cover shadow-[0_30px_60px_rgba(0,0,0,0.55)]"

@@ -21,7 +21,7 @@ const steps: { number: string; title: string; text: string; icon: LucideIcon }[]
   {
     number: '03',
     title: 'Сварка',
-    text: 'Подберу процесс под металл: MIG, TIG, MMA или наплавка.',
+    text: 'Подберу процесс под металл и задачу: MIG/MAG, MMA или наплавка.',
     icon: Hammer,
   },
   {

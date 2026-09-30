@@ -10,13 +10,13 @@ import { site } from '@/lib/site'
 export const metadata: Metadata = buildMetadata({
   title: 'Наши работы и отзывы',
   description:
-    'Портфолио сварочных работ МЕТАЛЛШОВ: каркасы, нержавейка, алюминий, ремонт узлов. Фотоотчёты и отзывы заказчиков.',
+    'Портфолио сварочных работ МЕТАЛЛШОВ: мангалы, отопление, коллекторная разводка, выхлоп. Фото и видео с объектов, отзывы заказчиков.',
   path: '/portfolio',
   keywords: [
     'портфолио сварочных работ',
-    'примеры сварки металлоконструкций',
+    'примеры сварки отопления',
     'отзывы сварщик Москва',
-    'работы по аргонной сварке',
+    'мангал на заказ сварка',
   ],
 })
 
@@ -27,11 +27,11 @@ const portfolioJsonLd = {
   url: `${site.url}/portfolio`,
   isPartOf: { '@id': `${site.url}/#website` },
   about: 'Примеры сварочных работ',
-  hasPart: portfolioProjects.slice(0, 6).map((project) => ({
+  hasPart: portfolioProjects.map((project) => ({
     '@type': 'CreativeWork',
     name: project.title,
     description: project.description,
-    image: project.image,
+    image: project.image.startsWith('http') ? project.image : `${site.url}${project.image}`,
   })),
 }
 
@@ -54,7 +54,7 @@ export default function PortfolioPage() {
             Наши <span className="text-accent">работы</span>
           </>
         }
-        description="Каркасы, нержавейка, алюминий, ремонт узлов. Листайте кейсы — по каждому есть фотоотчёт этапов."
+        description="Мангалы, отопление, разводка, выхлоп. Листайте кейсы — у каждого фотоотчёт, у части есть видео."
       />
       <HorizontalPortfolio />
       <Reviews />

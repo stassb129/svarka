@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, ChevronRight } from 'lucide-react'
 import { fadeIn, fadeInUp, staggerContainer, viewportOnce } from '@/lib/motion'
+import { stock } from '@/lib/stock'
 
 type Service = {
   number: string
@@ -19,32 +20,28 @@ const services: Service[] = [
     title: 'MIG/MAG',
     description: 'Полуавтомат для конструкций и монтажа',
     href: '/services#mig',
-    image:
-      'https://images.unsplash.com/photo-1504917598105-6e5be9b5b1b1?auto=format&fit=crop&w=800&q=80',
+    image: stock.mig.src,
   },
   {
     number: '02',
-    title: 'TIG / АРГОН',
-    description: 'Точный шов по нержавейке и алюминию',
-    href: '/services#tig',
-    image:
-      'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80',
+    title: 'ОТОПЛЕНИЕ',
+    description: 'Радиаторы, полотенцесушители, разводка',
+    href: '/services#heating',
+    image: stock.heating.src,
   },
   {
     number: '03',
-    title: 'КОНСТРУКЦИИ',
-    description: 'Каркасы, ограждения, нестандартные рамы',
+    title: 'ИЗДЕЛИЯ',
+    description: 'Мангалы, каркасы, нестандартные рамы',
     href: '/services#structures',
-    image:
-      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=800&q=80',
+    image: stock.structures.src,
   },
   {
     number: '04',
     title: 'РЕМОНТ',
-    description: 'Наплавка, восстановление узлов и MMA',
+    description: 'Наплавка, выхлоп, восстановление узлов',
     href: '/services#repair',
-    image:
-      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80',
+    image: stock.repair.src,
   },
 ]
 
@@ -72,14 +69,14 @@ export default function Services() {
               variants={fadeInUp}
               className="mt-4 text-balance text-4xl font-black uppercase leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl"
             >
-              Все виды <span className="text-accent">сварки</span>
+              Сварка под <span className="text-accent">ваши задачи</span>
             </motion.h2>
             <motion.p
               variants={fadeInUp}
               className="mt-4 max-w-lg text-base font-light leading-relaxed text-white/50"
             >
-              Подберу процесс под металл и задачу: от тонкой нержавейки до монтажа каркаса и ремонта
-              узлов.
+              От врезки радиатора в квартире до мангала во дворе и ремонта выхлопа — подберу процесс
+              под металл и условия на объекте.
             </motion.p>
           </div>
           <motion.div variants={fadeInUp}>
@@ -126,10 +123,11 @@ export default function Services() {
                 Наши работы
               </span>
               <h3 className="mt-4 text-2xl font-extrabold uppercase leading-tight tracking-tight sm:text-3xl">
-                Каркасы, нержавейка, ремонт узлов
+                Мангалы, отопление, выхлоп
               </h3>
               <p className="mt-3 max-w-xl text-sm font-light leading-relaxed text-white/50">
-                Реальные задачи: от ограждений и ворот до обвязки и восстановления изношенных деталей.
+                Реальные объекты: от полотенцесушителя и радиатора до коллекторной разводки и
+                металлоизделий.
               </p>
             </div>
             <span className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">

@@ -26,7 +26,7 @@ export default function TwitterImage() {
           Сварка с выездом
         </div>
         <div style={{ marginTop: 20, fontSize: 26, color: 'rgba(255,255,255,0.6)' }}>
-          MIG · TIG · конструкции · ремонт
+          MIG · отопление · изделия · ремонт
         </div>
       </div>
     ),

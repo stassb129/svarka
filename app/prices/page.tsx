@@ -8,13 +8,13 @@ import { site } from '@/lib/site'
 export const metadata: Metadata = buildMetadata({
   title: 'Цены на сварочные работы',
   description:
-    'Стартовые цены на MIG/MAG, TIG, металлоконструкции, ремонт и наплавку. Точная смета после выезда на объект по Москве и области.',
+    'Стартовые цены на MIG/MAG, трубы и отопление, металлоизделия, ремонт и наплавку. Точная смета после выезда на объект по Москве и области.',
   path: '/prices',
   keywords: [
     'цены на сварку Москва',
     'стоимость MIG MAG',
-    'цена аргонной сварки',
-    'сварка металлоконструкций цена',
+    'цена сварки труб отопления',
+    'сварка металлоизделий цена',
   ],
 })
 
@@ -28,10 +28,10 @@ const offerCatalogJsonLd = {
       '@type': 'Offer',
       name: 'Полуавтомат MIG/MAG',
       priceCurrency: 'RUB',
-      price: '900',
+      price: '500',
       priceSpecification: {
         '@type': 'UnitPriceSpecification',
-        price: '900',
+        price: '500',
         priceCurrency: 'RUB',
         unitText: 'п.м.',
       },
@@ -39,25 +39,25 @@ const offerCatalogJsonLd = {
     },
     {
       '@type': 'Offer',
-      name: 'Аргонодуговая TIG',
+      name: 'Трубы и отопление',
       priceCurrency: 'RUB',
-      price: '1400',
+      price: '700',
       priceSpecification: {
         '@type': 'UnitPriceSpecification',
-        price: '1400',
+        price: '700',
         priceCurrency: 'RUB',
         unitText: 'п.м.',
       },
-      url: `${site.url}/services#tig`,
+      url: `${site.url}/services#heating`,
     },
     {
       '@type': 'Offer',
-      name: 'Металлоконструкции',
+      name: 'Металлоизделия',
       priceCurrency: 'RUB',
-      price: '1100',
+      price: '550',
       priceSpecification: {
         '@type': 'UnitPriceSpecification',
-        price: '1100',
+        price: '550',
         priceCurrency: 'RUB',
         unitText: 'п.м.',
       },
@@ -67,10 +67,10 @@ const offerCatalogJsonLd = {
       '@type': 'Offer',
       name: 'Ремонт и наплавка',
       priceCurrency: 'RUB',
-      price: '1200',
+      price: '600',
       priceSpecification: {
         '@type': 'UnitPriceSpecification',
-        price: '1200',
+        price: '600',
         priceCurrency: 'RUB',
         unitText: 'п.м.',
       },
@@ -98,7 +98,7 @@ export default function PricesPage() {
             Прозрачные <span className="text-accent">расценки</span>
           </>
         }
-        description="Стартовые ставки без материалов. Итоговую смету зафиксируем после выезда и оценки объёма."
+        description="Стартовые ставки по рынку Москвы, без материалов. Минимум за выезд — от 3 000 ₽. Итоговую смету зафиксируем после оценки объёма."
       />
       <PriceList />
     </>

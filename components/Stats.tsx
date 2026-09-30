@@ -16,7 +16,7 @@ type Stat = {
 
 const stats: Stat[] = [
   { value: 12, suffix: '+', label: 'лет практики сварочных работ', icon: TrendingUp },
-  { value: 4, label: 'основных вида сварки в работе', icon: Flame },
+  { value: 4, label: 'направления сварочных работ', icon: Flame },
   { value: 5, prefix: 'до ', suffix: '\u00A0лет', label: 'гарантия на сварочные швы', icon: ShieldCheck },
   { value: 100, suffix: '%', label: 'выезд и смета до начала работ', icon: Wrench },
 ]

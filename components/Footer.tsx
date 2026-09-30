@@ -63,8 +63,8 @@ export default function Footer() {
           <motion.div variants={fadeInUp} className="lg:pr-8">
             <Logo />
             <p className="mt-6 text-sm font-light leading-relaxed text-white/45">
-              Все виды сварки с выездом: MIG/MAG, TIG, конструкции и ремонт узлов. Надёжный шов и
-              понятная смета.
+              Все виды сварки с выездом: MIG/MAG, отопление, металлоизделия и ремонт узлов. Надёжный
+              шов и понятная смета.
             </p>
           </motion.div>
 

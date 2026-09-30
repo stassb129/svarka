@@ -126,15 +126,15 @@ export function organizationJsonLd() {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Аргонодуговая сварка TIG',
-            url: absoluteUrl('/services#tig'),
+            name: 'Трубы и отопление',
+            url: absoluteUrl('/services#heating'),
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Металлоконструкции',
+            name: 'Металлоизделия',
             url: absoluteUrl('/services#structures'),
           },
         },
@@ -192,13 +192,13 @@ export function servicesPageJsonLd() {
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'TIG / Аргон',
-        url: absoluteUrl('/services#tig'),
+        name: 'Трубы и отопление',
+        url: absoluteUrl('/services#heating'),
       },
       {
         '@type': 'ListItem',
         position: 3,
-        name: 'Металлоконструкции',
+        name: 'Металлоизделия',
         url: absoluteUrl('/services#structures'),
       },
       {

@@ -24,8 +24,9 @@ export const site = {
   locale: 'ru_RU',
   language: 'ru',
   description:
-    'MIG/MAG, аргонодуговая TIG, металлоконструкции, ремонт и наплавка. Выезд на объект по Москве и области, смета до начала работ, гарантия до 5 лет.',
-  shortDescription: 'Все виды сварки с выездом: MIG/MAG, TIG, конструкции и ремонт узлов.',
+    'MIG/MAG, трубы и отопление, металлоизделия, ремонт и наплавка. Выезд на объект по Москве и области, смета до начала работ, гарантия до 5 лет.',
+  shortDescription:
+    'Сварка с выездом: MIG/MAG, отопление, металлоизделия и ремонт узлов.',
 } as const
 
 export const navLinks = [
@@ -37,8 +38,8 @@ export const navLinks = [
 
 export const servicesNav = [
   { label: 'Полуавтомат MIG/MAG', href: '/services#mig' },
-  { label: 'Аргонодуговая TIG', href: '/services#tig' },
-  { label: 'Металлоконструкции', href: '/services#structures' },
+  { label: 'Трубы и отопление', href: '/services#heating' },
+  { label: 'Металлоизделия', href: '/services#structures' },
   { label: 'Ремонт и наплавка', href: '/services#repair' },
 ] as const
 
@@ -46,10 +47,10 @@ export const seoKeywords = [
   'сварочные работы Москва',
   'сварка с выездом',
   'MIG MAG сварка',
-  'аргонодуговая сварка TIG',
-  'металлоконструкции сварка',
+  'сварка труб отопления',
+  'врезка радиаторов',
+  'металлоизделия на заказ',
   'ремонт сваркой',
-  'наплавка металла',
   'сварочные услуги',
   'МЕТАЛЛШОВ',
 ] as const

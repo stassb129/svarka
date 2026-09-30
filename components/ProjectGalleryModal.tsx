@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Play, X } from 'lucide-react'
 import { EASE } from '@/lib/motion'
-import { typeLabels, type PortfolioProject } from '@/lib/portfolio'
+import { galleryItemType, typeLabels, type PortfolioProject } from '@/lib/portfolio'
 
 type Props = {
   project: PortfolioProject | null
@@ -15,7 +15,7 @@ function pad(n: number) {
   return String(n).padStart(2, '0')
 }
 
-/** Wide gallery modal with animated image slider for a portfolio project. */
+/** Wide gallery modal with animated image/video slider for a portfolio project. */
 export default function ProjectGalleryModal({ project, onClose }: Props) {
   return (
     <AnimatePresence>
@@ -55,6 +55,7 @@ function ModalBody({ project, onClose }: { project: PortfolioProject; onClose: (
   }, [onClose, prev, next])
 
   const current = images[index]
+  const currentType = galleryItemType(current)
 
   return (
     <motion.div
@@ -90,7 +91,6 @@ function ModalBody({ project, onClose }: { project: PortfolioProject; onClose: (
         </button>
 
         <div className="grid min-h-0 flex-1 lg:grid-cols-[1.45fr_1fr]">
-          {/* Gallery */}
           <div className="relative flex min-h-[42vh] flex-col bg-black sm:min-h-[48vh] lg:min-h-[min(78vh,720px)]">
             <div className="relative flex-1 overflow-hidden">
               <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -103,7 +103,7 @@ function ModalBody({ project, onClose }: { project: PortfolioProject; onClose: (
                   exit="exit"
                   transition={{ duration: 0.45, ease: EASE }}
                   className="absolute inset-0"
-                  drag="x"
+                  drag={currentType === 'image' ? 'x' : false}
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.12}
                   onDragEnd={(_, info) => {
@@ -111,24 +111,37 @@ function ModalBody({ project, onClose }: { project: PortfolioProject; onClose: (
                     else if (info.offset.x > 64 || info.velocity.x > 400) prev()
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={current.src}
-                    alt={current.alt}
-                    className="h-full w-full select-none object-cover"
-                    draggable={false}
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/25"
-                  />
+                  {currentType === 'video' ? (
+                    <video
+                      key={current.src}
+                      src={current.src}
+                      className="h-full w-full select-none object-contain bg-black"
+                      controls
+                      playsInline
+                      preload="metadata"
+                    />
+                  ) : (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={current.src}
+                        alt={current.alt}
+                        className="h-full w-full select-none object-cover"
+                        draggable={false}
+                      />
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/25"
+                      />
+                    </>
+                  )}
                 </motion.div>
               </AnimatePresence>
 
               {images.length > 1 && (
                 <>
-                  <NavButton side="left" onClick={prev} label="Предыдущее фото" />
-                  <NavButton side="right" onClick={next} label="Следующее фото" />
+                  <NavButton side="left" onClick={prev} label="Предыдущее" />
+                  <NavButton side="right" onClick={next} label="Следующее" />
                 </>
               )}
 
@@ -142,6 +155,7 @@ function ModalBody({ project, onClose }: { project: PortfolioProject; onClose: (
                       className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80"
                     >
                       {current.caption}
+                      {currentType === 'video' ? ' · видео' : ''}
                     </motion.p>
                   )}
                   <p className="mt-1 font-mono text-sm font-bold text-white/90">
@@ -154,28 +168,36 @@ function ModalBody({ project, onClose }: { project: PortfolioProject; onClose: (
 
             {images.length > 1 && (
               <div className="flex gap-2 overflow-x-auto border-t border-white/10 bg-ink-900/80 p-3 no-scrollbar">
-                {images.map((img, i) => (
-                  <button
-                    key={img.src + i}
-                    type="button"
-                    onClick={() => goTo(i, i > index ? 1 : -1)}
-                    aria-label={`Фото ${i + 1}`}
-                    aria-current={i === index ? 'true' : undefined}
-                    className={`relative h-14 w-20 shrink-0 overflow-hidden rounded-[5px] border-2 transition-all duration-300 sm:h-16 sm:w-24 ${
-                      i === index
-                        ? 'border-accent shadow-[0_0_0_1px_rgba(46,196,255,0.4)]'
-                        : 'border-white/10 opacity-55 hover:opacity-90'
-                    }`}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={img.src} alt="" className="h-full w-full object-cover" />
-                  </button>
-                ))}
+                {images.map((img, i) => {
+                  const kind = galleryItemType(img)
+                  return (
+                    <button
+                      key={img.src + i}
+                      type="button"
+                      onClick={() => goTo(i, i > index ? 1 : -1)}
+                      aria-label={kind === 'video' ? `Видео ${i + 1}` : `Фото ${i + 1}`}
+                      aria-current={i === index ? 'true' : undefined}
+                      className={`relative h-14 w-20 shrink-0 overflow-hidden rounded-[5px] border-2 transition-all duration-300 sm:h-16 sm:w-24 ${
+                        i === index
+                          ? 'border-accent shadow-[0_0_0_1px_rgba(46,196,255,0.4)]'
+                          : 'border-white/10 opacity-55 hover:opacity-90'
+                      }`}
+                    >
+                      {kind === 'video' ? (
+                        <span className="flex h-full w-full items-center justify-center bg-ink-700 text-accent">
+                          <Play size={18} fill="currentColor" />
+                        </span>
+                      ) : (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={img.src} alt="" className="h-full w-full object-cover" />
+                      )}
+                    </button>
+                  )
+                })}
               </div>
             )}
           </div>
 
-          {/* Info */}
           <div className="flex min-h-0 flex-col overflow-y-auto border-t border-white/10 lg:border-l lg:border-t-0">
             <div className="px-6 py-7 sm:px-8 sm:py-9 lg:px-10 lg:py-10">
               <motion.div
@@ -229,7 +251,7 @@ function ModalBody({ project, onClose }: { project: PortfolioProject; onClose: (
                 transition={{ delay: 0.28 }}
                 className="mt-8 hidden text-[11px] font-medium uppercase tracking-[0.18em] text-white/35 lg:block"
               >
-                ← → листать фото · Esc закрыть
+                ← → листать · Esc закрыть
               </motion.div>
             </div>
           </div>

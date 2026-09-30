@@ -50,7 +50,7 @@ export default function OpenGraphImage() {
             Все виды сварки с выездом
           </div>
           <div style={{ fontSize: 28, color: 'rgba(255,255,255,0.65)', maxWidth: 820, lineHeight: 1.35 }}>
-            MIG/MAG · TIG · конструкции · ремонт и наплавка
+            MIG/MAG · отопление · металлоизделия · ремонт
           </div>
         </div>
 
