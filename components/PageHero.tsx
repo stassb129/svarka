@@ -22,7 +22,7 @@ export default function PageHero({ label, title, description }: Props) {
 
       <motion.div
         variants={staggerContainer(0.12)}
-        initial="hidden"
+        initial={false}
         animate="visible"
         className="container-x"
       >

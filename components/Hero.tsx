@@ -22,7 +22,7 @@ export default function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-8 xl:gap-12">
           <motion.div
             variants={staggerContainer(0.12)}
-            initial="hidden"
+            initial={false}
             animate="visible"
             className="max-w-xl xl:max-w-2xl"
           >
@@ -92,7 +92,7 @@ export default function Hero() {
 
           <motion.div
             variants={slideInRight}
-            initial="hidden"
+            initial={false}
             animate="visible"
             className="relative mx-auto w-full max-w-xl lg:max-w-none"
           >
@@ -120,7 +120,7 @@ function MeshBackground() {
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 grid-lines opacity-50" />
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={false}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.4, ease: EASE }}
         className="absolute -left-40 top-10 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(46,196,255,0.18),transparent_65%)] blur-3xl"

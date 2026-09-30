@@ -40,7 +40,7 @@ export default function Header() {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      initial={false}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: EASE }}
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${

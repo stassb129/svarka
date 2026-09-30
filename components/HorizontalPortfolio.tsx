@@ -277,7 +277,7 @@ function DesktopSlide({
           animate={
             active
               ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: reduceMotion ? 0 : 50 }
+              : { opacity: 0.35, y: reduceMotion ? 0 : 40 }
           }
           transition={{ duration: 0.55, ease: EASE }}
           className="max-w-2xl"

@@ -2,8 +2,13 @@ import type { Variants } from 'framer-motion'
 
 export const EASE = [0.22, 1, 0.36, 1] as const
 
+/**
+ * Avoid opacity:0 on SSR/first paint. If JS is slow or blocked (common on fresh
+ * custom domains), zero opacity leaves a blank page with only the skip link.
+ * Keep content readable; animate mainly via transform + light fade.
+ */
 export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0.96, y: 28 },
   visible: {
     opacity: 1,
     y: 0,
@@ -12,22 +17,22 @@ export const fadeInUp: Variants = {
 }
 
 export const fadeIn: Variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0.96 },
   visible: { opacity: 1, transition: { duration: 0.8, ease: EASE } },
 }
 
 export const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -48 },
+  hidden: { opacity: 0.96, x: -36 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: EASE } },
 }
 
 export const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 48 },
+  hidden: { opacity: 0.96, x: 36 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: EASE } },
 }
 
 export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.94 },
+  hidden: { opacity: 0.96, scale: 0.97 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: EASE } },
 }
 
