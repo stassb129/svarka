@@ -1,8 +1,10 @@
+import { assetUrl } from '@/lib/assets'
+
 export const site = {
   name: 'МЕТАЛЛШОВ',
   legalName: 'МЕТАЛЛШОВ',
   tagline: 'МЕТАЛЛ · ТОЧНОСТЬ · СИЛА',
-  logo: '/logo.png',
+  logo: assetUrl('/logo.png'),
   /** Production origin without trailing slash. Override via NEXT_PUBLIC_SITE_URL. */
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://metalshov.ru').replace(/\/$/, ''),
   phone: '+7 (977) 652-77-77',

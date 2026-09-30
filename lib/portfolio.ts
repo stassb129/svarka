@@ -1,3 +1,5 @@
+import { assetUrl } from '@/lib/assets'
+
 export type ProjectType = 'mig' | 'heating' | 'structures' | 'repair'
 
 export type GalleryItem = {
@@ -30,7 +32,7 @@ export function galleryItemType(item: GalleryItem): 'image' | 'video' {
   return item.type ?? (isVideo(item.src) ? 'video' : 'image')
 }
 
-export const portfolioProjects: PortfolioProject[] = [
+const rawPortfolioProjects: PortfolioProject[] = [
   {
     id: 'mangal',
     title: 'МАНГАЛ',
@@ -216,6 +218,12 @@ export const portfolioProjects: PortfolioProject[] = [
     tone: 'from-[#1C222C] via-[#2A3140] to-[#12151C]',
   },
 ]
+
+export const portfolioProjects: PortfolioProject[] = rawPortfolioProjects.map((project) => ({
+  ...project,
+  image: assetUrl(project.image),
+  gallery: project.gallery.map((item) => ({ ...item, src: assetUrl(item.src) })),
+}))
 
 export const typeLabels: Record<ProjectType, string> = {
   mig: 'Полуавтомат MIG/MAG',

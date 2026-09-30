@@ -2,38 +2,33 @@ import type { Variants } from 'framer-motion'
 
 export const EASE = [0.22, 1, 0.36, 1] as const
 
-/**
- * Avoid opacity:0 on SSR/first paint. If JS is slow or blocked (common on fresh
- * custom domains), zero opacity leaves a blank page with only the skip link.
- * Keep content readable; animate mainly via transform + light fade.
- */
+/** Transform-only motion — never hide content with opacity:0 (breaks no-JS / slow JS). */
 export const fadeInUp: Variants = {
-  hidden: { opacity: 0.96, y: 28 },
+  hidden: { y: 24 },
   visible: {
-    opacity: 1,
     y: 0,
     transition: { duration: 0.7, ease: EASE },
   },
 }
 
 export const fadeIn: Variants = {
-  hidden: { opacity: 0.96 },
-  visible: { opacity: 1, transition: { duration: 0.8, ease: EASE } },
+  hidden: {},
+  visible: { transition: { duration: 0.8, ease: EASE } },
 }
 
 export const slideInLeft: Variants = {
-  hidden: { opacity: 0.96, x: -36 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: EASE } },
+  hidden: { x: -28 },
+  visible: { x: 0, transition: { duration: 0.7, ease: EASE } },
 }
 
 export const slideInRight: Variants = {
-  hidden: { opacity: 0.96, x: 36 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: EASE } },
+  hidden: { x: 28 },
+  visible: { x: 0, transition: { duration: 0.7, ease: EASE } },
 }
 
 export const scaleIn: Variants = {
-  hidden: { opacity: 0.96, scale: 0.97 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: EASE } },
+  hidden: { scale: 0.98 },
+  visible: { scale: 1, transition: { duration: 0.6, ease: EASE } },
 }
 
 export const staggerContainer = (stagger = 0.12, delay = 0): Variants => ({
@@ -43,5 +38,4 @@ export const staggerContainer = (stagger = 0.12, delay = 0): Variants => ({
   },
 })
 
-/** Reusable `whileInView` config so every section animates once, slightly early. */
 export const viewportOnce = { once: true, amount: 0.25 } as const

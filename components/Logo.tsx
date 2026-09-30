@@ -1,5 +1,4 @@
-﻿import Image from 'next/image'
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { site } from '@/lib/site'
 
 type Props = {
@@ -11,18 +10,19 @@ type Props = {
   asLink?: boolean
 }
 
+/** Plain <img> — avoids Next Image optimizer + huge priority preload srcset. */
 export default function Logo({ className = '', showText = true, asLink = true }: Props) {
   const content = (
     <>
       <span className="relative flex h-11 w-[4.125rem] shrink-0 items-center justify-center transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-[4.5rem]">
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={site.logo}
           alt=""
-          width={1536}
-          height={1024}
+          width={72}
+          height={48}
           className="h-full w-full object-contain"
-          sizes="72px"
-          priority
+          decoding="async"
         />
       </span>
       {showText && (

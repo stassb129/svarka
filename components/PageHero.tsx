@@ -1,15 +1,10 @@
-﻿'use client'
-
-import { motion } from 'framer-motion'
-import { fadeInUp, staggerContainer } from '@/lib/motion'
-
-type Props = {
+﻿type Props = {
   label: string
   title: React.ReactNode
   description?: string
 }
 
-/** Compact hero reused by every inner page. */
+/** Compact hero for inner pages — plain HTML, always visible. */
 export default function PageHero({ label, title, description }: Props) {
   return (
     <section className="relative isolate overflow-hidden section-y-tight">
@@ -20,33 +15,22 @@ export default function PageHero({ label, title, description }: Props) {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-ink" />
       </div>
 
-      <motion.div
-        variants={staggerContainer(0.12)}
-        initial={false}
-        animate="visible"
-        className="container-x"
-      >
-        <motion.span variants={fadeInUp} className="section-label">
+      <div className="container-x">
+        <span className="section-label">
           <span className="h-px w-10 bg-accent" />
           {label}
-        </motion.span>
+        </span>
 
-        <motion.h1
-          variants={fadeInUp}
-          className="mt-4 max-w-4xl text-balance text-4xl font-black uppercase leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl"
-        >
+        <h1 className="mt-4 max-w-4xl text-balance text-4xl font-black uppercase leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
           {title}
-        </motion.h1>
+        </h1>
 
         {description && (
-          <motion.p
-            variants={fadeInUp}
-            className="mt-4 max-w-2xl text-base font-light leading-relaxed text-white/55 lg:text-lg"
-          >
+          <p className="mt-4 max-w-2xl text-base font-light leading-relaxed text-white/55 lg:text-lg">
             {description}
-          </motion.p>
+          </p>
         )}
-      </motion.div>
+      </div>
     </section>
   )
 }

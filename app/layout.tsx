@@ -4,8 +4,6 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import JsonLd from '@/components/JsonLd'
 import { LeadModalProvider } from '@/components/LeadModal'
-import CustomCursor from '@/components/CustomCursor'
-import SmoothScroll from '@/components/SmoothScroll'
 import ScrollProgress from '@/components/ScrollProgress'
 import { site } from '@/lib/site'
 import { buildMetadata, organizationJsonLd, websiteJsonLd } from '@/lib/seo'
@@ -70,6 +68,19 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={montserrat.variable}>
+      <head>
+        {/* Critical paint if external CSS is slow/truncated on the custom domain */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+html,body{background:#0A0C10;color:#fff;margin:0;font-family:system-ui,sans-serif}
+a{color:#2EC4FF}
+header,main,footer,section,h1,h2,h3,p,ul,li,nav,img{opacity:1!important;visibility:visible!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+`.replace(/\n/g, ''),
+          }}
+        />
+      </head>
       <body className="flex min-h-screen flex-col bg-ink text-white">
         <a
           href="#main-content"
@@ -78,9 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Перейти к содержимому
         </a>
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
-        <SmoothScroll />
         <ScrollProgress />
-        <CustomCursor />
         <LeadModalProvider>
           <Header />
           <main id="main-content" className="flex-1">

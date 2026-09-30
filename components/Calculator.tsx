@@ -302,14 +302,14 @@ function Backdrop() {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,#0A0C10_0%,#141414_45%,#0A0C10_100%)]" />
       <div className="absolute inset-0 grid-lines opacity-60" />
       <motion.div
-        initial={{ opacity: 0, scale: 0.85 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
+        initial={false}
+        animate={inView ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
         transition={{ duration: 1.4, ease: 'easeOut' }}
         className="absolute -left-32 top-1/4 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(46,196,255,0.28),transparent_65%)] blur-3xl"
       />
       <motion.div
-        initial={{ opacity: 0, scale: 0.85 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
+        initial={false}
+        animate={inView ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
         transition={{ duration: 1.4, delay: 0.15, ease: 'easeOut' }}
         className="absolute -right-24 bottom-0 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(140,140,190,0.16),transparent_65%)] blur-3xl"
       />

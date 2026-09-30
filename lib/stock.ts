@@ -1,23 +1,25 @@
+import { assetUrl } from '@/lib/assets'
+
 /** Stock imagery for marketing surfaces (hero, services). Portfolio uses /portfolio only. */
 export const stock = {
   hero: {
-    src: '/stock/hero.jpg',
+    src: assetUrl('/stock/hero.jpg'),
     alt: 'Сварщик в маске выполняет дуговую сварку металла',
   },
   mig: {
-    src: '/stock/mig.jpg',
+    src: assetUrl('/stock/mig.jpg'),
     alt: 'Дуговая сварка полуавтоматом, искры на шве',
   },
   heating: {
-    src: '/stock/heating.jpg',
+    src: assetUrl('/stock/heating.jpg'),
     alt: 'Сварка стальных труб на объекте',
   },
   structures: {
-    src: '/stock/structures.jpg',
+    src: assetUrl('/stock/structures.jpg'),
     alt: 'Сварка металлоконструкций на высоте',
   },
   repair: {
-    src: '/stock/repair.jpg',
+    src: assetUrl('/stock/repair.jpg'),
     alt: 'Ремонт и обработка металла в автомастерской',
   },
 } as const

@@ -3,10 +3,8 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { AnimatePresence, motion } from 'framer-motion'
 import { Clock, Menu, Phone, X } from 'lucide-react'
 import { navLinks, site } from '@/lib/site'
-import { EASE } from '@/lib/motion'
 import { useLeadModal } from '@/components/LeadModal'
 import Logo from '@/components/Logo'
 
@@ -16,7 +14,6 @@ export default function Header() {
   const pathname = usePathname()
   const { openLeadModal } = useLeadModal()
 
-  // Hash-only links (e.g. /#contacts) never count as the active page.
   const isActive = (href: string) => !href.includes('#') && pathname.startsWith(href)
 
   useEffect(() => {
@@ -26,7 +23,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Lock body scroll while the mobile drawer is open.
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => {
@@ -39,10 +35,7 @@ export default function Header() {
   }, [pathname])
 
   return (
-    <motion.header
-      initial={false}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.7, ease: EASE }}
+    <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
           ? 'border-b border-white/10 bg-ink/70 backdrop-blur-md shadow-[0_10px_40px_-20px_rgba(0,0,0,0.9)]'
@@ -106,63 +99,49 @@ export default function Header() {
         </div>
       </div>
 
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.35, ease: EASE }}
-            className="overflow-hidden border-t border-white/10 bg-ink/95 backdrop-blur-xl xl:hidden"
-          >
-            <div className="container-x flex flex-col gap-1 py-6">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i, duration: 0.4, ease: EASE }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    aria-current={isActive(link.href) ? 'page' : undefined}
-                    className={`block border-b border-white/5 py-3.5 text-lg font-semibold transition-colors hover:text-accent ${
-                      isActive(link.href) ? 'text-accent' : 'text-white/80'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+      {menuOpen && (
+        <div className="overflow-hidden border-t border-white/10 bg-ink/95 backdrop-blur-xl xl:hidden">
+          <div className="container-x flex flex-col gap-1 py-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`block border-b border-white/5 py-3.5 text-lg font-semibold transition-colors hover:text-accent ${
+                  isActive(link.href) ? 'text-accent' : 'text-white/80'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
 
-              <div className="mt-5 flex flex-col gap-3">
-                <a
-                  href={site.phoneHref}
-                  className="flex items-center gap-3 text-xl font-bold tracking-tight"
-                >
-                  <Phone size={18} className="text-accent" />
-                  {site.phone}
-                </a>
-                <span className="flex items-center gap-3 text-sm text-white/50">
-                  <Clock size={16} className="text-accent" />
-                  {site.schedule}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMenuOpen(false)
-                    openLeadModal('Мобильное меню')
-                  }}
-                  className="btn-accent mt-2 w-full"
-                >
-                  Оставить заявку
-                </button>
-              </div>
+            <div className="mt-5 flex flex-col gap-3">
+              <a
+                href={site.phoneHref}
+                className="flex items-center gap-3 text-xl font-bold tracking-tight"
+              >
+                <Phone size={18} className="text-accent" />
+                {site.phone}
+              </a>
+              <span className="flex items-center gap-3 text-sm text-white/50">
+                <Clock size={16} className="text-accent" />
+                {site.schedule}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false)
+                  openLeadModal('Мобильное меню')
+                }}
+                className="btn-accent mt-2 w-full"
+              >
+                Оставить заявку
+              </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+          </div>
+        </div>
+      )}
+    </header>
   )
 }
