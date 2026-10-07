@@ -36,11 +36,8 @@ export const metadata: Metadata = {
     email: true,
     address: true,
   },
-  icons: {
-    icon: [{ url: `${site.logo}?v=5`, type: 'image/png', sizes: 'any' }],
-    shortcut: `${site.logo}?v=5`,
-    apple: [{ url: `${site.logo}?v=5`, type: 'image/png' }],
-  },
+  // Favicon: app/icon.png + app/apple-icon.png + public/favicon.ico (file conventions)
+  // Do not point at logo.png — 1.3MB cross-host PNG is ignored by browsers as a tab icon.
   verification: {
     ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
       ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
